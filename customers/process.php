@@ -20,20 +20,41 @@ include '../server/testinput.php';
     $mobile_2 = test_input($_POST["mobile_2"]);
     $whatsapp_no = test_input($_POST["whatsapp_no"]);
 
+    $convo  = test_input($_POST["convo"]);
+    $customer_id  = test_input($_POST["customer_id"]);
+ 
    if(isset($_POST['engineers'])){
         $sql = "INSERT INTO customer(`customer_name`, `unit_division`, `work_address`, `location`, `workpin`, `office_adress`, `office_pincode`, `contact_person`, `department`, `designation`, `email_id`, `mobile_1`, `mobile_2`, `whatsapp_no`) VALUES ('$customer_name', '$unit_division', '$work_address', '$location', '$workpin', '$office_adress', '$office_pincode', '$contact_person' , '$department' , '$designation' , '$email_id' , '$mobile_1' , '$mobile_2' , '$whatsapp_no') ;"; 
         
         if ($conn->query($sql) === TRUE) {
             $_SESSION["success"] = "Added successfully";
-            header('location: ../admin/');
+            header('location: customer.php');
         } else {
             $_SESSION["error1"] = "Error please try again later";
-            header('location: ../admin/');
+            header('location: customer.php');
         }
 
 
 
     }else{
-        header('location: ../index.php');
+        header('location: customer.php');
     }
+    
+    if(isset($_POST['conversation'])){
+        $sql = "INSERT INTO `conversations`(`customer_id`, `enquiry_id`, `convo`) VALUES ('$customer_id', '$enquiry_id', '$convo') ;"; 
+        
+        if ($conn->query($sql) === TRUE) {
+            $_SESSION["success"] = "Added successfully";
+            header('location: customer.php');
+        } else {
+            $_SESSION["error1"] = "Error please try again later";
+            header('location: customer.php');
+        }
+
+
+
+    }else{
+        header('location: customer.php');
+    }
+
  ?>

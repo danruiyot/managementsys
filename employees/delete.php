@@ -1,6 +1,10 @@
 <?php
 session_start();
 ob_start();
+if ($_SESSION['uid'] == NULL) {
+	# code...
+	header('location: ../user/');
+}
 include_once '../server/conn.php';
 $id =$_POST['id'];
 // sql query for deleting data from database

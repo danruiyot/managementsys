@@ -1,10 +1,8 @@
 <?php
-session_start();
-ob_start();
     include('../server/conn.php');
     include('../templates/header2.php');
 
-    $sql = "SELECT * FROM enquiries JOIN enquiryengineers ON enquiries.e_id=enquiryengineers.enquiry_id WHERE approved = 'yes' ORDER BY new_id DESC";
+    $sql = "SELECT * FROM enquiries JOIN enquiryengineers ON enquiries.e_id=enquiryengineers.enquiry_id WHERE forward_to = 'vendors' ORDER BY new_id DESC";
    
 
     $result = $conn->query($sql);
@@ -14,19 +12,19 @@ ob_start();
         
             ?><div class="w3-margin">
   <div style="max-width:800px;" class="w3-card-2 w3-round w3-white">
-<div class="w3-container" id="contact" style="margin-top:75px">
+<div class="w3-container">
 <div><br>
    <div class="w3-center w3-theme-l2">
-            <h3>sent enquiries</h3>
+            <h3>This is list of enquiries sent to vendors</h3>
           </div>
           <hr>
 <table class="w3-striped w3-table w3-bordered  w3-hoverable">
 <tr class="w3-theme-l2">
 <th>Enquiry Number</th>
-<th >Visit manager or dealer?</th>
-<th >Visit designer?</th>
+<th >Datasheet</th>
+<th >Images</th>
 <th>Date received</th>
-<th>Product or service</th>
+<th>Action</th>
 </tr>
  <?php
               while($row = $result->fetch_assoc()) {
@@ -34,22 +32,24 @@ ob_start();
 <tr>
              
               <td><?php echo $row["e_id"]  ?></td>
-              <td ><?php echo $row["visit_manager_dealer"]  ?></td>
-              <td ><?php echo $row["visit_designengineer"]  ?></td>
+               <td><a download="<?php echo $row["product_service_name"]  ?>" href="../<?php echo $row["datasheet"]  ?>"><span class="fa fa-download">Download</span></a></td>
+              <td><a download="<?php echo $row["product_service_name"]  ?>" href="../<?php echo $row["files"]  ?>" title="ImageName"><span class="fa fa-download">Download</span></a></td>
               <td><?php echo $row["dateadded"]  ?></td>
-              <td><?php echo $row["product_service"]  ?></td>
+              <td><a class="w3-btn w3-btn w3-green w3-round" href="quotationsingle.php?q=<?php echo $row["e_id"];  ?>">Details</a></td>
               </tr>
     <?php
         }
         
         ?>
         
-        </table></div>
+        </table>
+<br>
+      </div>
 <div class="w3-card w3-white">
  <?php
         
     } else {
-        echo "No Results";
+        echo "Sorry. No results Yet"; 
     }
 $conn->close();
     ?>

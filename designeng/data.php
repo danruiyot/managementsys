@@ -1,6 +1,10 @@
 <?php
 session_start();
 ob_start();
+if ($_SESSION['uid'] == NULL) {
+  # code...
+  header('location: ../user/');
+}
 include ('../templates/header2.php');
     include('../server/conn.php');
     $sql = "SELECT * FROM `enquiries` ORDER BY e_id DESC";

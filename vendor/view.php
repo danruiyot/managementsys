@@ -1,8 +1,10 @@
 <?php
 session_start();
 ob_start();
+
     include('../server/conn.php');
-    include('../templates/header2.php');
+include('../templates/header2.php');
+include('../contactperson/viewone.php');
 
     $q = $_GET['q'];
     $sql = "SELECT * FROM `vendors` WHERE v_id ='$q'";
@@ -12,46 +14,62 @@ ob_start();
         // output data of each row
         
             ?><div class="w3-margin">
-  <div style="max-width:800px;" class="w3-card-2 w3-round w3-white">
-<div class="w3-container" id="contact" style="margin-top:75px">
+  <div class="w3-card-2 w3-round w3-white">
+<div class="w3-container" id="contact" >
 <div><br>
    <div class="w3-center w3-theme-l2">
-            <h3>Customer Details</h3>
+            <h3>Vendor Details</h3>
           </div>
           <hr>
-<table class="w3-striped w3-table w3-bordered  w3-hoverable">
-<tr class="w3-theme-l2">
+<table class="w3-striped w3-table-all w3-mobile w3-bordered  w3-hoverable">
+
  <?php
               while($row = $result->fetch_assoc()) {
-                  ?>
-<tr>
 
-             <th>Vendor Name</th>
-              <td><?php echo $row["vendor_name"]  ?></td></tr>
+                  ?>
+<tr> <th>Vendor Name</th>
+              <td><?php echo $row["vendor_name"]  ?></td>
+              </tr>
+              <?php if($row["ops_area"]){ ?>
               <tr>
-              <th >Operation Area</th>
-              <td ><?php echo $row["ops_area"]  ?></td></tr>
+              <th>Location</th>
+              <td ><?php echo $row["ops_area"]  ?></td>
+              </tr>
+              <?php } ?>
               <tr>
-             <th>Adress</th>
-              <td><?php echo $row["address"]  ?></td></tr>
-             <tr>
-             <th>Email 1</th>
-              <td><?php echo $row["mail1"]  ?></td></tr>
+              <th>Pin Code</th>
+              <td><?php echo $row["address"]  ?></td>
+              </tr>
               <tr>
+    <th>Product</th>
+                <td><?php echo $row["product"]  ?></td>
+                </tr>
               <tr>
-             <th>Email 2</th>
-              <td><?php echo $row["mail2"]  ?></td></tr>
+    <th>Designation</th>
+    <td ><?php echo $row["address"]  ?></td>
+    </tr>
               <tr>
-              <th >mobile number 1</th>
-              <td ><?php echo $row["mobile1"]  ?></td></tr>
+    <th>Email ID</th>
+    <td><?php echo $row["mail1"]  ?></td>
+    </tr>
               <tr>
-              <th >Mobile number 2</th>
-              <td ><?php echo $row["mobile2"]  ?></td></tr>
+    <th >mobile NO.</th>
+    <td><?php echo $row["mobile1"]  ?></td>
+    </tr>
               <tr>
-              <th >whatsapp number 2</th>
-              <td ><?php echo $row["whatsapp_no"]  ?></td></tr>
-              
- 
+    <th>Location</th>
+    <td><?php echo $row["mobile1"]  ?></td>
+    </tr>
+              <tr>
+    <th >Whatsapp NO. </th>
+    <td><?php echo $row["mobile1"]  ?></td>
+    </tr>
+    </table>
+    <table class="w3-striped w3-table-all w3-mobile w3-bordered  w3-hoverable">
+    <?php
+    $whois = $row['contact_person'];
+    getThem($whois);
+    ?>
     </table>
     <br>
 <div class="w3-bar">

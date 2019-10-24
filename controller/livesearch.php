@@ -1,12 +1,10 @@
 <?php
-include('server/conn.php');
-class search{
- 
-}
-$sql = "SELECT * FROM `customer`";
+function selectCustomer(){
+
+include('../server/conn.php');
+$sql = "SELECT * FROM `customers`";
 $result = $conn->query($sql);
 ?>
-<label>Select Customer</label>
 <select name="customer_id" class="w3-select w3-input w3-border"  id="">
 <?php
 if ($result->num_rows > 0) {
@@ -18,5 +16,6 @@ if ($result->num_rows > 0) {
     ?>
 </select>
     <?php
+}
 }
 ?>

@@ -1,7 +1,9 @@
 <?php
 session_start();
 ob_start();
-if(isset($_SESSION["uid"])){
+if (isset($_SESSION["uid"])) {
+	header('location: ../index.php');
+	# code...
 }
 ?>
 
@@ -9,9 +11,23 @@ if(isset($_SESSION["uid"])){
 include('../templates/header2.php');
 ?>
 <br>
-<div class="w3-display-container w3-margin">
-<div class="w3-display-center">
-<div class="w3-round w3-card w3-white" style="max-width:450px;">
+<div class="w3-row w3-margin">
+<div class="w3-col s12 m4 l4">
+	<div class="w3-clear-fix w3-margin w3-padding">
+<div class="w3-round w3-card w3-white">
+	<br>
+	<p class="w3-margin">
+		if You dont have an account, please contact the system admin, to be added and provide a valid email adress.
+		but For demo, <br>
+		Workid = 1 <br>
+		password = 123
+	</p>
+	<br>
+		</div>
+	</div>
+</div>
+<div class="w3-col s12 m4 l4">
+<div class="w3-round w3-card w3-white">
 <br>
 <div class="w3-center">
 <h3>

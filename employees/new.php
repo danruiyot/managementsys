@@ -1,65 +1,69 @@
 <div class="w3-section">
 <div class="w3-center w3-theme-l4">
-<h3>New Engineer</h3>
+<h3>New Employee</h3>
 </div>
 <hr>
             <div class="w3-section">
-        <label>Customer Name</label>
-        <input class="w3-input w3-border" type="text" name="customer_name" required>
+        <label>Employee Name</label>
+        <input class="w3-input w3-border" type="text" name="employee_name" required>
       </div>
       <div class="w3-section">
-        <label>Unit Division Location</label>
-        <input class="w3-input w3-border" type="text" name="unit_division" required>
+        <label>Address</label>
+        <input class="w3-input w3-border" type="text" name="address" required>
       </div>
       <div class="w3-section">
-        <label>Location</label>
-        <input class="w3-input w3-border" type="text" name="location" required>
+        <label>Pin Code</label>
+        <input class="w3-input w3-border" type="text" name="pincode" required>
       </div>
-      <div class="w3-section">
-        <label>Work address</label>
-        <input class="w3-input w3-border" type="text" name="work_address" required>
-      </div>
-      <div class="w3-section">
-        <label>Work Add (PIN code)</label>
-        <input class="w3-input w3-border" type="text" name="workpin" required>
-      </div>
-      <div class="w3-section">
-        <label>Office adress</label>
-        <input class="w3-input w3-border" type="text" name="office_adress" required>
-      </div>
-      <div class="w3-section">
-        <label>Office PIN Code</label>
-        <input class="w3-input w3-border" type="text" name="office_pincode" required>
-      </div>
-      <div class="w3-section">
-        <label>Contact Person</label>
-        <input class="w3-input w3-border" type="text" name="contact_person" required>
-      </div>
-      <div class="w3-section">
+       <div class="w3-section">
         <label>Department</label>
-        <input class="w3-input w3-border" type="text" name="department" required>
+<select name="dept" class="w3-select w3-border">
+  <option value="Production_engineers">Production Engineer</option>
+  <option value="product_expert">Product Expert</option>
+  <option value="process_designers">Process Designers</option>
+  <option value="3d_modelling">3D modelling Group</option>
+  <option value="2d_modelling">2D modelling Group</option>
+  <option value="production_expert">Production Expert</option>
+  <option value="quality_expert">Quality Expert</option>
+  <option value="logistic">Logistic Team</option>
+  <option value="service">Service Team</option>
+
+</select>
+      </div>
+      
+      <div class="w3-section">
+        <label>Current Designation</label>
+        <input class="w3-input w3-border" type="text" name="current_desi" required>
+      </div>
+
+      <div class="w3-section">
+        <label>Work Profile</label>
+        <input class="w3-input w3-border" type="text" name="workpprof" required>
       </div>
       <div class="w3-section">
-        <label>designation</label>
-        <input class="w3-input w3-border" type="text" name="designation" required>
+        <label>Email Id</label>
+        <input class="w3-input w3-border" type="text" name="email_id" required>
       </div>
       <div class="w3-section">
-        <label>Email</label>
-        <input class="w3-input w3-border" type="email" name="email_id" required>
+        <label>Mobile 1</label>
+        <input class="w3-input w3-border" type="text" name="mobile_1" required>
       </div>
       <div class="w3-section">
-        <label>Mobile number</label>
-        <input class="w3-input w3-border" type="tel" name="mobile_1" required>
-      </div>
-      <div class="w3-section">
-        <label>Mobile number 2</label>
-        <input class="w3-input w3-border" type="tel" name="mobile_2" >
+        <label>Mobile 2</label>
+        <input class="w3-input w3-border" type="tel" name="mobile_2" required>
       </div>
       <div class="w3-section">
         <label>Whatsapp Number</label>
-        <input class="w3-input w3-border" type="text" name="whatsapp_no" required>
+        <input class="w3-input w3-border" type="tel" name="whatsapp_no" required>
+      </div>
+      <div class="w3-section">
+        <label>Current Experience (Activity)</label>
+        <input class="w3-input w3-border" type="text" name="current_ex" required>
+      </div>
+      <div class="w3-section">
+        <label>Past Experirence</label>
+        <input class="w3-input w3-border" type="text" name="past_ex" required>
       </div>
 
-
-
       <button type="submit" name="engineers" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Save details</button>
+

@@ -2,69 +2,55 @@
 session_start();
 ob_start();
 
-    include('../server/conn.php');
+if ($_SESSION['uid'] == NULL) {
+  # code...
+  header('location: ../user/');
+}
+   include('../server/conn.php');
 
     include('../templates/header2.php');
-    $type = $_GET['type'];
+    if ($_SESSION['q']== NULL) {
+       $_SESSION['q']= $_GET['q'];
+    }
+  
+    $type = $_SESSION['q'];
 
-    $sql = "SELECT * FROM `enquiries` WHERE enq_type = '$type'   ORDER BY e_id ASC";
+    $sql = "SELECT * FROM  `customers`  WHERE c_id = '$type'";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
         // output data of each row
         
-            ?>
-            <div class="w3-margin">
-  <div style="max-width:800px;" class="w3-card-2 w3-round w3-white">
-<div class="w3-container" id="contact" style="margin-top:75px">
-<div>
-<br>
-<header class="w3-center w3-theme-l4"><h3 ><?php 
-    if ($type == 'nonstdenquiry') {
-    echo "Non Standard Enquiries";
-  }elseif ($type == 'stdenquiry') {
-    echo "Standard Enquiries";
-    # code...
-  }elseif ($type == 'repair') {
-    echo "Repairs";
-    
-  }else{
-    header('location: ../index.php');
-  } ?></h3>
-</header>
-  <br>
-<table class="w3-striped w3-table w3-bordered  w3-hoverable">
-<tr class="w3-theme-l2">
 
-	
-              <th>Enquiry Number</th>
-              <th class=" w3-hide-small">Visit manager or dealer?</th> 
-              <th class=" w3-hide-small">Visit designer?</th>
-              <th>Date received</th>
-              <th>Product or service</th>
-              <th>Action</th>
-              </tr>
-              <tr>
-              <?php
+include_once('../templates/header2.php');
+?>
+<div class="w3-margin">
+  <div class="w3-card-2 w3-round w3-white">
+  <div class="w3-margin" ><br>
+    <div id="showed">
+      <?php
               while($row = $result->fetch_assoc()) {
                   ?>
-                  <td></a><?php echo $row["e_id"]  ?></td>
-              <td class=" w3-hide-small"><?php echo $row["visit_manager_dealer"]  ?></td>
-              <td class=" w3-hide-small"><?php echo $row["visit_designengineer"]  ?></td>
-              <td><?php echo $row["dateadded"]  ?></td>
-              <td><?php echo $row["product_service"]  ?></td>
-              <td><a class="w3-btn w3-green" href="approve.php?q=<?php echo $row["e_id"]  ?>"> Show details</td>
-              
-              </tr>
-    <?php
+  <?php
+include_once('../contactperson/dropdown.php');
+  
+?>
+</div>
+<div class="w3-container">
+<div class="w3-row">
+      <form action="../controller/process.php" method="post">
+      <?php
+require('../products/editcustomer.php');
+?>
+ </form>
+</div>
+ </div>
+  <?php
         }
         ?>
-         
-         
-    </table>
-</div>
-    </div>
   </div>
+</div>
+</div>
             <?php
         
     } else {
@@ -75,3 +61,5 @@ ob_start();
 
 
 ?>
+</body>
+</html>

@@ -1,21 +1,21 @@
 <?php
 session_start();
 ob_start();
-
+if ($_SESSION['uid'] == NULL) {
+  # code...
+  header('location: ../user/');
+}
     include('../server/conn.php');
 
     include('../templates/header2.php');
-
-    $sql = "SELECT * FROM `enquiries`  ORDER BY e_id ASC";
+    include('../controller/livesearch.php');
+//
+    $sql = "SELECT * FROM `enquiries`   ORDER BY e_id ASC";
     $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        // output data of each row
-        
-            ?>
-            <div class="w3-margin">
+    ?>
+ <div class="w3-margin">
   <div style="max-width:800px;" class="w3-card-2 w3-round w3-white">
-<div class="w3-container" id="contact" style="margin-top:75px">
+<div class="w3-container" id="contact">
 <br>
 	<button id="hide" onclick="document.getElementById('Show').style.display='block';document.getElementById('showed').style.display='none'" class="w3-green w3-btn w3-round w3-block" id="add">Add new Enquiry</button>
 <br>
@@ -30,6 +30,13 @@ include('../products/new_enquiry.php');
     </div>
     </div>
 <br> 
+    <?php
+    if ($result->num_rows > 0) {
+        // output data of each row
+        
+            ?>
+
+
 <div id="showed">
 <header class="w3-center w3-theme-l4"><h3 >All enquiry details</h3>
 </header>
@@ -61,8 +68,9 @@ include('../products/new_enquiry.php');
         }
         ?>
          
-         
+         <br>
     </table>
+    <br>
     </div>
 </div>
     </div>

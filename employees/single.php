@@ -3,9 +3,12 @@ session_start();
 ob_start();
     include('../server/conn.php');
     include('../templates/header2.php');
-
+if ($_SESSION['uid'] == NULL) {
+  # code...
+  header('location: ../user/');
+}
     $q = $_GET['engineer_id'];
-    $sql = "SELECT * FROM `engineers` WHERE engineer_id ='$q'";
+    $sql = "SELECT * FROM `employee` WHERE employee_id ='$q'";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
@@ -13,7 +16,7 @@ ob_start();
         
             ?><div class="w3-margin">
   <div style="max-width:800px;" class="w3-card-2 w3-round w3-white">
-<div class="w3-container" id="contact" style="margin-top:75px">
+<div class="w3-container">
 <div><br>
    <div class="w3-center w3-theme-l2">
             <h3>Enqury approval</h3>
@@ -26,34 +29,25 @@ ob_start();
                   ?>
 <tr>
              <th>Engineer Name</th>
-              <td><?php echo $row["engineers"]  ?></td></tr>
+              <td><?php echo $row["employee_name"]  ?></td></tr>
               <tr>
               <th >Unit Division</th>
-              <td ><?php echo $row["unit_division"]  ?></td></tr>
+              <td ><?php echo $row["address"]  ?></td></tr>
               <tr>
               <th >Work address</th>
-              <td ><?php echo $row["work_address"]  ?></td></tr>
+              <td ><?php echo $row["pincode"]  ?></td></tr>
               <tr>
               <th>Location</th>
-              <td><?php echo $row["location"]  ?></td></tr>
+              <td><?php echo $row["workpprof"]  ?></td></tr>
               <tr>
               <th>Work pin</th>
-              <td><?php echo $row["workpin"]  ?></td></tr>
+              <td><?php echo $row["current_ex"]  ?></td></tr>
               <tr>
              <th>Office Adress</th>
-              <td><?php echo $row["office_adress"]  ?></td></tr>
+              <td><?php echo $row["past_ex"]  ?></td></tr>
               <tr>
-              <th >Office Pin code</th>
-              <td ><?php echo $row["office_pincode"]  ?></td></tr>
-              <tr>
-              <th >Contact Person</th>
-              <td ><?php echo $row["contact_person"]  ?></td></tr>
-              <tr>
-              <th>department</th>
-              <td><?php echo $row["department"]  ?></td></tr>
-              <tr>
-              <th>designation</th>
-              <td><?php echo $row["designation"]  ?></td></tr>
+             <th>Department</th>
+              <td><?php echo $row["dept"]  ?></td></tr>
               <tr>
              <th>Email id</th>
               <td><?php echo $row["email_id"]  ?></td></tr>
@@ -71,6 +65,7 @@ ob_start();
     </table>
     <br>
     <a href="all.php" class="w3-btn w3-theme">Back</a>
+    <br>
     <br>
     <?php
         }

@@ -1,6 +1,10 @@
 <?php
 session_start();
 ob_start();
+if ($_SESSION['uid'] == NULL) {
+  # code...
+  header('location: ../user/');
+}
 
     include('../server/conn.php');
 

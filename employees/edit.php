@@ -3,7 +3,10 @@ session_start();
 ob_start();
     include('../server/conn.php');
     include('../templates/header2.php');
-
+if ($_SESSION['uid'] == NULL) {
+  # code...
+  header('location: ../user/');
+}
     $q = $_GET['q'];
     if ($q==null) {
       # code...

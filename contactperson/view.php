@@ -1,6 +1,11 @@
 <?php
 session_start();
 ob_start();
+if ($_SESSION['uid'] == NULL) {
+  # code...
+  header('location: ../user/');
+}
+
     include('../server/conn.php');
     include('../templates/header2.php');
 
@@ -13,7 +18,7 @@ ob_start();
         
             ?><div class="w3-margin">
   <div style="max-width:800px;" class="w3-card-2 w3-round w3-white">
-<div class="w3-container" id="contact" style="margin-top:75px">
+<div class="w3-container" id="contact">
 <div><br>
    <div class="w3-center w3-theme-l2">
             <h3>Contact Person Details</h3>

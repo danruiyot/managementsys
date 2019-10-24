@@ -11,10 +11,10 @@ function customerCount(){
       mysqli_free_result($result);
    }
 }
-function employeeCount(){
+function employeeCount($table){
     require('server/conn.php');
  
-    $sql = "SELECT * FROM engineers";
+    $sql = "SELECT * FROM $table";
     
     if ($result = mysqli_query($conn,$sql)){
        $rowcount = mysqli_num_rows($result);

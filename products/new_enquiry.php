@@ -1,7 +1,15 @@
+<div>
+<div>
 <div class="w3-section">
-            <div class="w3-section">
+     <label>Customer name</label>
+     <?php
+     selectCustomer();
+     ?>
+     <br>
+     <span>* If customer is not Present, please <a href="../customer/newcustomer.php">add</a> first</span>
+      </div>
 
-<div class="w3-section">
+      <div class="w3-section">
      <label>What is the requirement from customer</label>
         <input class="w3-input w3-border" type="text" name="customer_requirements" required>
       </div>
@@ -9,9 +17,10 @@
         <label>Category</label>
         <select class="w3-select w3-border" name="product_service">
     <option value="" disabled selected>Choose Category</option>
-    <option value="product">Product</option>
-    <option value="requirement">Requirement</option>
-    <option value="service">Service</option>
+    <option value="product">Product Requirement</option>
+    <option value="service">Service Requirement</option>
+    <option value="repair">Repair</option>
+    <option value="rent">Rent</option>
   </select>
       </div>
       <div class="w3-section">

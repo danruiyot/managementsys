@@ -1,6 +1,10 @@
 <?php
 session_start();
 ob_start();
+if ($_SESSION['uid'] == NULL) {
+    # code...
+    header('location: user/');
+}
 require_once('../server/conn.php');
 require_once('../server/testinput.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $visit_manager_dealer = test_input($_POST["visit_manager_dealer"]);
     $visit_designengineer = test_input($_POST["visit_designengineer"]);
     $enq_type = test_input($_POST["enq_type"]);
+    $customer_id = test_input($_POST["customer_id"]);
 
 
     // engineers
@@ -26,7 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $workpin = test_input($_POST["workpin"]);
     $office_adress = test_input($_POST["office_adress"]);
     $office_pincode = test_input($_POST["office_pincode"]);
-    $contact_person = test_input($_POST["contact_person"]);
+    //$contact_person = test_input($_POST["contact_person"]);
+    $contact_person = implode(",",$_POST["contact_person"]);
     $department = test_input($_POST["department"]);
     $designation = test_input($_POST["designation"]);
     $email_id = test_input($_POST["email_id"]);
@@ -38,9 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $p_name = test_input($_POST["p_name"]);
     $category = test_input($_POST["category"]);
-    $stock = test_input($_POST["stock"]);
+    $datasheets = test_input($_POST["datasheets"]);
     $pic = test_input($_POST["pic"]);
-    $price = test_input($_POST["price"]);
+    $drawings = test_input($_POST["drawings"]);
     $description = test_input($_POST["description"]);
 
     //new enquiry
@@ -77,10 +83,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if ($conn->query($sql) === TRUE) {
             $_SESSION["success"] = "Added successfully";
-            header('location: ../admin/');
+            header('location: ../index.php');
         } else {
             $_SESSION["error1"] = "Error: " . $sql . "<br>" . $conn->error;
-            header('location: ../admin/');
+            header('location: ../index.php');
         }
     }else{
         header('location: ../index.php');
@@ -90,16 +96,30 @@ if(isset($_POST['customer'])){
     $sql = "INSERT INTO `customers`(`customer_name`, `unit_division`, `work_address`, `location`, `workpin`, `office_adress`, `office_pincode`, `contact_person`, `department`, `designation`, `email_id`, `mobile_1`, `mobile_2`, `whatsapp_no`) VALUES ('$customer_name', '$unit_division', '$work_address', '$location', '$workpin', '$office_adress', '$office_pincode', '$contact_person' , '$department' , '$designation' , '$email_id' , '$mobile_1' , '$mobile_2' , '$whatsapp_no') ;";
     
     if ($conn->query($sql) === TRUE) {
-        $_SESSION["success"] = "Added successfully";
-        header('location: ../customers/all.php');
+        $_SESSION["success"] = "Added Customer successfully";
+        header('location: ../index.php');
     } else {
-        $_SESSION["error1"] = "Error: " . $sql . "<br>" . $conn->error;
-        header('location: ../customers/all.php');
+        $_SESSION["error1"] = " Customer add Failed";
+        header('location: ../index.php');
     }
 }else{
-    header('location: ../customers/all.php');
+    header('location: ../index.php');
 }
 
+if(isset($_POST['customeredit'])){
+    unset( $_SESSION['q']);
+    $sql = "UPDATE `customers` SET `customer_name`='$customer_name',`unit_division`='$unit_division',`work_address`='$work_address',`location`='$location',`workpin`='$workpin',`office_adress`='$office_adress',`office_pincode`='$office_pincode',`contact_person`='$contact_person',`department`='$department',`designation`='$designation',`email_id`='$email_id',`mobile_1`='$mobile_1',`mobile_2`='$mobile_2',`whatsapp_no`='$whatsapp_no' WHERE c_id = '$customer_id';";
+    
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION["success"] = "Customer Edit successfully";
+        header('location: ../index.php');
+    } else {
+        $_SESSION["error1"] = "Error updating record ";
+        header('location: ../customers/customer.php');
+    }
+}else{
+    header('location: ../customers/customer.php');
+}
 
      //adding products
      if(isset($_POST['products'])){
@@ -110,14 +130,24 @@ if(isset($_POST['customer'])){
          move_uploaded_file($_FILES["pic"]["tmp_name"],"../lib/images/" . $newFilename);
          $location="lib/images/" . $newFilename;
 
-        $sql = "INSERT INTO `products`(`p_name`, `category`, `stock`, `pic`, `price`, `description`) VALUES ('$p_name','$category','$stock','$location','$price','$description');"; 
+         $fileinfo1=PATHINFO($_FILES["datasheets"]["name"]);
+         $newFilename1=$fileinfo1['filename'] ."_". time() . "." . $fileinfo1['extension'];
+         move_uploaded_file($_FILES["datasheets"]["tmp_name"],"../lib/documents/" . $newFilename1);
+         $datash="lib/documents/" . $newFilename1;
+
+         $fileinfo2=PATHINFO($_FILES["drawings"]["name"]);
+         $newFilename2=$fileinfo2['filename'] ."_". time() . "." . $fileinfo2['extension'];
+         move_uploaded_file($_FILES["drawings"]["tmp_name"],"../lib/documents/" . $newFilename2);
+         $draw="lib/documents/" . $newFilename2;
+
+        $sql = "INSERT INTO `products`(`datasheet`, `p_name`, `category`, `drawings`, `pic`) VALUES ('$datash','$p_name','$category','$draw','$location');"; 
         if ($conn->query($sql) === TRUE) {
-            $_SESSION["success"] = "Added successfully";
+            $_SESSION["success"] = "Product Added successfully";
             header('location: ../admin/');
         } else {
             $_SESSION["error1"] = "Error: " . $sql . "<br>" . mysqli_error($conn);
             //"Error please try again later";
-            header('location: ../admin/');
+            header('location: ../allproducts/product.php');
         }
     }else{
         header('location: ../index.php');
